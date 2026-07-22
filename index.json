@@ -1,20 +1,30 @@
 [
   {
-    "id": "intro-html",
-    "title": "Module 1: Introduction to HTML",
-    "track": "frontend-basics",
+    "id": "data-management-researchers",
+    "title": "Data Management for Researchers",
+    "track": "researchers",
     "order": 1,
-    "discipline": "Frontend",
-    "tags": ["HTML", "Beginner"],
-    "abstract": "Learn the skeleton of the web and core markup tags."
+    "discipline": "Research",
+    "tags": ["Data", "Analysis"],
+    "abstract": "Learn how to structure and document your raw research data for peer reviews."
   },
   {
-    "id": "css-basics",
-    "title": "Module 2: Styling with CSS",
-    "track": "frontend-basics",
-    "order": 2,
-    "discipline": "Frontend",
-    "tags": ["CSS", "Design"],
-    "abstract": "Discover colors, layouts, and typography to style your pages."
+    "id": "data-management-managers",
+    "title": "Data Governance for Managers",
+    "track": "managers",
+    "order": 1,
+    "discipline": "Management",
+    "tags": ["Governance", "Strategy"],
+    "abstract": "Learn how to manage data access, compliance, and team workflows."
+  },
+  {
+    "id": "data-management-trainers",
+    "title": "Teaching Data Management",
+    "track": "trainers",
+    "order": 1,
+    "discipline": "Training",
+    "tags": ["Pedagogy", "Data"],
+    "abstract": "Learn how to deliver engaging training sessions on data management principles."
   }
 ]
+
