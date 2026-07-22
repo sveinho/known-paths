@@ -151,12 +151,13 @@ document.addEventListener('DOMContentLoaded', function() {
       displayedCount = ITEMS_PER_PAGE;
     }
     
-    renderArticles();
-  }
-  // Renders learning modules and controls pagination slicing
-  function renderArticles() {
-    const searchWords = searchQuery.split(' ').filter(Boolean);
-    const isSearching = searchWords.length > 0;
+   // Robust initialization supporting different Markdown-it builds
+let md = null;
+if (typeof window.markdownit === 'function') {
+  md = new window.markdownit({ html: true, linkify: true });
+} else if (window.markdownit) {
+  md = window.markdownit({ html: true, linkify: true });
+}
 
     updateSearchUI(filteredArticles.length, isSearching);
 
