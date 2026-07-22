@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
   let filteredArticles = []; 
   let searchQuery = '';
   let activeArticleId = null;
+  let activeTrackFilter = 'all';
+
 
   const ITEMS_PER_PAGE = 10; 
   let displayedCount = ITEMS_PER_PAGE; 
