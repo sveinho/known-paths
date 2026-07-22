@@ -97,10 +97,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchWords = searchQuery.split(' ').filter(Boolean);
     const isSearching = searchWords.length > 0;
 
-    if (isSearching) {
+if (isSearching) {
       filteredArticles = allArticles.filter(article => {
+        // Sjekk om sporet matcher den valgte knappen først
+        if (activeTrackFilter !== 'all' && article.track !== activeTrackFilter) return false;
+
         const titleText = (article.title || '').toLowerCase();
-        
         return searchWords.every(word => {
           if (titleText.includes(word)) return true;
           const cleanWord = word.replace(/^\./, '');
