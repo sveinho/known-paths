@@ -487,3 +487,30 @@ article.filterable:hover .read-more-btn {
 .filter-btn.btn-researcher.active { background-color: var(--color-researcher); border-color: var(--color-researcher); }
 .filter-btn.btn-manager.active { background-color: var(--color-manager); border-color: var(--color-manager); }
 .filter-btn.btn-trainer.active { background-color: var(--color-trainer); border-color: var(--color-trainer); }
+
+/* ==========================================================================
+   9. DIMMING INACTIVE MODULES (FADE OUT EFFECT)
+   ========================================================================== */
+
+/* 1. Detect if the grid contains an expanded module */
+.modules-grid:has(article.filterable .full-content) article.filterable {
+  opacity: 0.4;
+  filter: grayscale(80%);
+  transform: scale(0.98);
+  border-left-color: #cbd5e0 !important; /* Forces a neutral grey border */
+  transition: all 0.3s ease;
+}
+
+/* 2. Keep the active/expanded module at full visibility and color */
+.modules-grid article.filterable:has(.full-content) {
+  opacity: 1 !important;
+  filter: grayscale(0%) !important;
+  transform: scale(1) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* 3. Restore fallback border colors specifically for active items */
+.modules-grid article.filterable:has(.full-content)[data-id*="-researchers"] { border-left-color: var(--color-researcher) !important; }
+.modules-grid article.filterable:has(.full-content)[data-id*="-managers"] { border-left-color: var(--color-manager) !important; }
+.modules-grid article.filterable:has(.full-content)[data-id*="-trainers"] { border-left-color: var(--color-trainer) !important; }
+
