@@ -375,6 +375,18 @@ if (typeof window.markdownit === 'function') {
   if (resetBtn) {
     resetBtn.addEventListener('click', resetEntireRegistry);
   }
-
+// Role Selection Button Controller
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Fjern 'active' klasse fra alle knapper og legg på den klikkede
+      filterButtons.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Oppdater filterstatet og kjør søkemotoren på nytt
+      activeTrackFilter = this.dataset.track;
+      filterArticles(true);
+    });
+  });
   loadArticles();
 });
