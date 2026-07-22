@@ -1,1 +1,20 @@
-
+[
+  {
+    "id": "intro-html",
+    "title": "Module 1: Introduction to HTML",
+    "track": "frontend-basics",
+    "order": 1,
+    "discipline": "Frontend",
+    "tags": ["HTML", "Beginner"],
+    "abstract": "Learn the skeleton of the web and core markup tags."
+  },
+  {
+    "id": "css-basics",
+    "title": "Module 2: Styling with CSS",
+    "track": "frontend-basics",
+    "order": 2,
+    "discipline": "Frontend",
+    "tags": ["CSS", "Design"],
+    "abstract": "Discover colors, layouts, and typography to style your pages."
+  }
+]
