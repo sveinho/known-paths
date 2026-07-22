@@ -1,14 +1,14 @@
 [
   {
     "id": "data-management-researchers",
-    "title": "Data Management for Researchers",
+    "title": "Module 1: Data Management for Researchers",
     "track": "researchers",
     "order": 1,
     "discipline": "Research",
-    "tags": ["Data", "Analysis"],
-    "abstract": "Learn how to structure and document your raw research data for peer reviews."
+    "tags": ["Data", "Structure"],
+    "abstract": "Learn how to structure and document your raw research data to meet peer-review standards and open-science policies."
   },
-    {
+  {
     "id": "data-sharing-researchers",
     "title": "Module 2: Open Science and Data Sharing",
     "track": "researchers",
@@ -28,21 +28,56 @@
   },
   {
     "id": "data-management-managers",
-    "title": "Data Governance for Managers",
+    "title": "Module 1: Data Governance for Managers",
     "track": "managers",
     "order": 1,
     "discipline": "Management",
     "tags": ["Governance", "Strategy"],
-    "abstract": "Learn how to manage data access, compliance, and team workflows."
+    "abstract": "Learn how to manage data access, compliance risk, and team workflows strategically."
+  },
+  {
+    "id": "security-managers",
+    "title": "Module 2: Risk Management and Data Security",
+    "track": "managers",
+    "order": 2,
+    "discipline": "Management",
+    "tags": ["Security", "Compliance"],
+    "abstract": "Shift focus toward mitigating risks, handling sensitive data (PII), and implementing cloud security strategies."
+  },
+  {
+    "id": "analytics-managers",
+    "title": "Module 3: Data-Driven Decision Making",
+    "track": "managers",
+    "order": 3,
+    "discipline": "Management",
+    "tags": ["Analytics", "KPI"],
+    "abstract": "The final module for managers teaches you how to translate governed data into actionable dashboards and business intelligence."
   },
   {
     "id": "data-management-trainers",
-    "title": "Teaching Data Management",
+    "title": "Module 1: Teaching Data Management",
     "track": "trainers",
     "order": 1,
     "discipline": "Training",
     "tags": ["Pedagogy", "Data"],
-    "abstract": "Learn how to deliver engaging training sessions on data management principles."
+    "abstract": "Learn how to transform dry data policies into engaging, memorable lessons for data literacy workshops."
+  },
+  {
+    "id": "curriculum-trainers",
+    "title": "Module 2: Curriculum Design for Data Literacy",
+    "track": "trainers",
+    "order": 2,
+    "discipline": "Training",
+    "tags": ["Curriculum", "Design"],
+    "abstract": "Learn how to map out a multi-day training workshop and tailor technical jargon to audiences with varying skill levels."
+  },
+  {
+    "id": "evaluation-trainers",
+    "title": "Module 3: Measuring Training Impact",
+    "track": "trainers",
+    "order": 3,
+    "discipline": "Training",
+    "tags": ["Evaluation", "ROI"],
+    "abstract": "The final step for trainers focuses on evaluating the long-term success of your workshops and gathering feedback to iterate."
   }
 ]
-
