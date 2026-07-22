@@ -466,3 +466,41 @@ For å gjøre utdanningsløpet vakkert, legg til denne stylingen i CSS-filen din
   transform: scale(1.1);
   cursor: pointer;
 }
+/* Base Article Card adjustments */
+article.filterable {
+  border-left: 6px solid #ccc; /* Default border */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+article.filterable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* 🔬 Path 1: Researchers (Blue theme) */
+article.filterable[data-id*="-researchers"] {
+  border-left-color: #2f80ed;
+}
+article.filterable[data-id*="-researchers"] .discipline-badge {
+  background-color: #e1f0ff;
+  color: #2f80ed;
+}
+
+/* 💼 Path 2: Managers (Purple theme) */
+article.filterable[data-id*="-managers"] {
+  border-left-color: #9b51e0;
+}
+article.filterable[data-id*="-managers"] .discipline-badge {
+  background-color: #f3e8ff;
+  color: #9b51e0;
+}
+
+/* 📢 Path 3: Trainers (Orange/Amber theme) */
+article.filterable[data-id*="-trainers"] {
+  border-left-color: #f2994a;
+}
+article.filterable[data-id*="-trainers"] .discipline-badge {
+  background-color: #fef4ea;
+  color: #f2994a;
+}
+
