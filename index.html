@@ -7,7 +7,9 @@
     <!-- Link to your custom stylesheet -->
     <link rel="stylesheet" href="styles.css">
     
-<script src="markdown-it.min.js" defer></script></head>
+    <!-- Local Markdown-it parser library with defer execution flag -->
+    <script src="markdown-it.min.js" defer></script>
+</head>
 <body>
 
     <!-- Main Navigation Bar -->
@@ -18,7 +20,7 @@
         </div>
     </header>
 
-    <!-- Search and Filter Control Center -->
+    <!-- Search and Filter Control Center (Clean and corrected) -->
     <section class="control-panel">
         <div class="search-wrapper">
             <input 
@@ -30,22 +32,7 @@
             <button id="resetSearchBtn" class="invisible" title="Clear search filters">✕</button>
         </div>
         
-        <!-- Status indicator text showing dynamic results count -->
-        <div id="searchCounter" class="search-counter">Loading track registry index...</div>
-    </section>
-    <!-- Search and Filter Control Center -->
-    <section class="control-panel">
-        <div class="search-wrapper">
-            <input 
-                type="text" 
-                id="searchInput" 
-                placeholder="Search modules by name, technology or concepts..." 
-                aria-label="Search learning modules"
-            >
-            <button id="resetSearchBtn" class="invisible" title="Clear search filters">✕</button>
-        </div>
-        
-        <!-- NEW: Role Selection Button Row -->
+        <!-- Role Selection Button Row -->
         <div class="filter-buttons-wrapper">
             <button class="filter-btn active" data-track="all">All Tracks</button>
             <button class="filter-btn btn-researcher" data-track="researchers">🔬 Researchers</button>
@@ -60,7 +47,7 @@
     <!-- Core Dynamic Content Section -->
     <main class="content-container">
         
-        <!-- Target container where app.js will injection the module cards -->
+        <!-- Target container where app.js will inject the module cards -->
         <div id="articlesContainer" class="modules-grid"></div>
 
         <!-- Fallback view shown only when zero query results return -->
