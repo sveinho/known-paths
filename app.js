@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
   let activeArticleId = null;
   let activeTrackFilter = 'all';
 
-
   const ITEMS_PER_PAGE = 10; 
   let displayedCount = ITEMS_PER_PAGE; 
 
@@ -89,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }, delay);
     };
   }
-
   // Search Engine: Filters and sorts elements by track order or relevance search
   function filterArticles(isNewQuery = false) {
     if (!articlesContainer) return;
@@ -97,17 +95,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchWords = searchQuery.split(' ').filter(Boolean);
     const isSearching = searchWords.length > 0;
 
-if (isSearching) {
+    if (isSearching) {
       filteredArticles = allArticles.filter(article => {
-        // Sjekk om sporet matcher den valgte knappen først
+        // Filter out non-matching tracks immediately if filter is active
         if (activeTrackFilter !== 'all' && article.track !== activeTrackFilter) return false;
 
         const titleText = (article.title || '').toLowerCase();
+        const abstractText = (article.abstract || '').toLowerCase();
+        const combinedSearchText = `${titleText} ${abstractText}`;
+
         return searchWords.every(word => {
-          if (titleText.includes(word)) return true;
+          if (combinedSearchText.includes(word)) return true;
           const cleanWord = word.replace(/^\./, '');
-          const cleanTitle = titleText.replace(/\./g, '');
-          return titleText.includes(cleanWord) || cleanTitle.includes(cleanWord);
+          const cleanTitle = combinedSearchText.replace(/\./g, '');
+          return combinedSearchText.includes(cleanWord) || cleanTitle.includes(cleanWord);
         });
       });
 
@@ -142,8 +143,15 @@ if (isSearching) {
         }
       });
     } else {
-      // Default: Sort by Track group first, then by the structured order sequence
-      filteredArticles = [...allArticles].sort((a, b) => {
+      // Default state when not searching: Filter by active track if chosen
+      filteredArticles = [...allArticles];
+      
+      if (activeTrackFilter !== 'all') {
+        filteredArticles = filteredArticles.filter(article => article.track === activeTrackFilter);
+      }
+      
+      // Sort by Track group first, then by the structured order sequence
+      filteredArticles.sort((a, b) => {
         const trackA = a.track || '';
         const trackB = b.track || '';
         if (trackA !== trackB) return trackA.localeCompare(trackB);
@@ -155,13 +163,12 @@ if (isSearching) {
       displayedCount = ITEMS_PER_PAGE;
     }
     
-   // Robust initialization supporting different Markdown-it builds
-let md = null;
-if (typeof window.markdownit === 'function') {
-  md = new window.markdownit({ html: true, linkify: true });
-} else if (window.markdownit) {
-  md = window.markdownit({ html: true, linkify: true });
-}
+    renderArticles();
+  }
+  // Renders learning modules and controls pagination slicing
+  function renderArticles() {
+    const searchWords = searchQuery.split(' ').filter(Boolean);
+    const isSearching = searchWords.length > 0;
 
     updateSearchUI(filteredArticles.length, isSearching);
 
@@ -186,8 +193,14 @@ if (typeof window.markdownit === 'function') {
 
       let expandedHTML = '';
       if (isExpanded) {
-        // Initialize markdown-it with HTML injection enabled
-        const md = window.markdownit ? window.markdownit({ html: true }) : null;
+        // Robust initialization using your downloaded local script build
+        let md = null;
+        if (typeof window.markdownit === 'function') {
+          md = new window.markdownit({ html: true, linkify: true });
+        } else if (window.markdownit) {
+          md = window.markdownit({ html: true, linkify: true });
+        }
+        
         let htmlContent = article.markdownContent && md ? md.render(article.markdownContent) : 'Loading module text...';
 
         // Check if a sequential next module exists in the current learning path
@@ -375,18 +388,18 @@ if (typeof window.markdownit === 'function') {
   if (resetBtn) {
     resetBtn.addEventListener('click', resetEntireRegistry);
   }
-// Role Selection Button Controller
+
+  // Role Selection Button Controller
   const filterButtons = document.querySelectorAll('.filter-btn');
   filterButtons.forEach(btn => {
     btn.addEventListener('click', function() {
-      // Fjern 'active' klasse fra alle knapper og legg på den klikkede
       filterButtons.forEach(b => b.classList.remove('active'));
       this.classList.add('active');
       
-      // Oppdater filterstatet og kjør søkemotoren på nytt
       activeTrackFilter = this.dataset.track;
       filterArticles(true);
     });
   });
+
   loadArticles();
 });
