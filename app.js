@@ -153,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     renderArticles();
   }
-
   // Renders learning modules and controls pagination slicing
   function renderArticles() {
     const searchWords = searchQuery.split(' ').filter(Boolean);
@@ -182,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       let expandedHTML = '';
       if (isExpanded) {
-        // Initialize markdown-it with task-list plugin support if available
+        // Initialize markdown-it with HTML injection enabled
         const md = window.markdownit ? window.markdownit({ html: true }) : null;
         let htmlContent = article.markdownContent && md ? md.render(article.markdownContent) : 'Loading module text...';
 
@@ -238,7 +237,6 @@ document.addEventListener('DOMContentLoaded', function() {
     articlesContainer.querySelectorAll('.filterable').forEach(articleEl => {
       
       articleEl.addEventListener('click', async function(e) {
-        // Prevent generic card closing when firing semantic action triggers
         if (
           e.target.classList.contains('close-article-btn') || 
           e.target.classList.contains('share-btn') || 
@@ -280,14 +278,98 @@ document.addEventListener('DOMContentLoaded', function() {
           });
         });
       }
+
       const closeBtn = articleEl.querySelector('.close-article-btn');
-      if (closeBtn) {closeBtn.addEventListener('click', function(e) {e.stopPropagation();
-      activeArticleId = null;
-      history.pushState({}, '', window.location.pathname);
-      filterArticles(false);});}});}
-  
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          activeArticleId = null;
+          history.pushState({}, '', window.location.pathname); 
+          filterArticles(false);
+        });
+      }
+    });
+  }
+
   // Central state controller for processing learning track traversal
-  async function handleModuleSelection(articleId) {const targetArticle = allArticles.find(a => a.id === articleId);if (activeArticleId === articleId) {activeArticleId = null;
-  history.pushState({}, '', window.location.pathname);
-  filterArticles(false);
-  return;}activeArticleId = articleId;history.pushState({id: articleId}, '', ?id=${articleId});filterArticles(false);if (targetArticle && !targetArticle.markdownContent) {try {const res = await fetch(articles/${articleId}.md);if (!res.ok) throw new Error('Markdown file not found');const mdText = await res.text();targetArticle.markdownContent = mdText;filterArticles(false);} catch (err) {console.error("Could not load markdown details:", err);const contentEl = articlesContainer.querySelector([data-id="${articleId}"] .full-content);if (contentEl) contentEl.innerHTML = 'Error loading document details.';return;}}const newRenderedEl = articlesContainer.querySelector([data-id="${articleId}"]);if (newRenderedEl) newRenderedEl.scrollIntoView({ behavior: 'smooth', block: 'start' });}function updateSearchUI(count, isSearching) {if (searchCounter) {searchCounter.textContent = isSearching? Found ${count} matching steps sorted by relevance: Track index loaded. Total modules available: ${count};}if (noResults) noResults.classList.toggle('hidden', count > 0);}function resetEntireRegistry() {searchInput.value = '';searchQuery = '';activeArticleId = null;history.pushState({}, '', window.location.pathname);if (resetBtn) resetBtn.classList.add('invisible');filterArticles(true);}if (loadMoreBtn) {loadMoreBtn.addEventListener('click', function() {displayedCount += ITEMS_PER_PAGE;renderArticles();});}if (searchInput) {searchInput.addEventListener('input', debounce(function(e) {const currentInput = e.target.value.trim();searchQuery = currentInput.toLowerCase();if (resetBtn) {if (currentInput.length > 0) {resetBtn.classList.remove('invisible');} else {resetBtn.classList.add('invisible');}}filterArticles(true);}, 250));}if (resetBtn) {resetBtn.addEventListener('click', resetEntireRegistry);}loadArticles();});
+  async function handleModuleSelection(articleId) {
+    const targetArticle = allArticles.find(a => a.id === articleId);
+
+    if (activeArticleId === articleId) {
+      activeArticleId = null;
+      history.pushState({}, '', window.location.pathname); 
+      filterArticles(false);
+      return;
+    }
+
+    activeArticleId = articleId;
+    history.pushState({id: articleId}, '', `?id=${articleId}`); 
+    filterArticles(false);
+
+    if (targetArticle && !targetArticle.markdownContent) {
+      try {
+        const res = await fetch(`articles/${articleId}.md`);
+        if (!res.ok) throw new Error('Markdown file not found');
+        const mdText = await res.text();
+        
+        targetArticle.markdownContent = mdText;
+        filterArticles(false);
+      } catch (err) {
+        console.error("Could not load markdown details:", err);
+        const contentEl = articlesContainer.querySelector(`[data-id="${articleId}"] .full-content`);
+        if (contentEl) contentEl.innerHTML = '<p style="color:red;">Error loading document details.</p>';
+        return;
+      }
+    }
+
+    const newRenderedEl = articlesContainer.querySelector(`[data-id="${articleId}"]`);
+    if (newRenderedEl) newRenderedEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function updateSearchUI(count, isSearching) {
+    if (searchCounter) {
+      searchCounter.textContent = isSearching 
+        ? `Found ${count} matching steps sorted by relevance`
+        : `Track index loaded. Total modules available: ${count}`;
+    }
+    if (noResults) noResults.classList.toggle('hidden', count > 0);
+  }
+
+  function resetEntireRegistry() {
+    searchInput.value = ''; 
+    searchQuery = ''; 
+    activeArticleId = null;
+    history.pushState({}, '', window.location.pathname); 
+    if (resetBtn) resetBtn.classList.add('invisible');
+    filterArticles(true);
+  }
+
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', function() {
+      displayedCount += ITEMS_PER_PAGE;
+      renderArticles();
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', debounce(function(e) {
+      const currentInput = e.target.value.trim();
+      searchQuery = currentInput.toLowerCase();
+      
+      if (resetBtn) {
+        if (currentInput.length > 0) {
+          resetBtn.classList.remove('invisible');
+        } else {
+          resetBtn.classList.add('invisible');
+        }
+      }
+      filterArticles(true);
+    }, 250));
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', resetEntireRegistry);
+  }
+
+  loadArticles();
+});
