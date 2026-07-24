@@ -6,8 +6,8 @@
     "order": 1,
     "discipline": "Research",
     "tags": ["Data", "Structure"],
-    "abstract": "How to get started..."
-  },
+    "abstract": "Choose a learning path to get started. Limit search by choosing one learning path, or include all."
+    },
   {
     "id": "data-management-researchers",
     "title": "Module 1: Data Management for Researchers",
