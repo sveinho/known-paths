@@ -1,4 +1,13 @@
 [
+    {
+    "id": "getting-started",
+    "title": "Getting started: choosing a path,
+    "track": "info",
+    "order": 1,
+    "discipline": "Research",
+    "tags": ["Data", "Structure"],
+    "abstract": "How to get started..."
+  },
   {
     "id": "data-management-researchers",
     "title": "Module 1: Data Management for Researchers",
